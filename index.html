@@ -332,6 +332,11 @@
                 const prop = gltf.scene;
                 prop.position.set(0, 0, offsetZ);
 
+                // Right hand weapons need 180 degree rotation along handle (Y axis)
+                if (hand === 'right') {
+                    prop.rotation.y = Math.PI;
+                }
+
                 prop.traverse((child) => {
                     if (child.isMesh) {
                         child.castShadow = true;
