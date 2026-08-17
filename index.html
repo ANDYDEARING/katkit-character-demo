@@ -36,6 +36,48 @@
             font-size: 14px;
             color: #aaa;
         }
+        #controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            min-width: 240px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        #controls h3 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: #8af;
+            border-bottom: 1px solid #444;
+            padding-bottom: 4px;
+        }
+        #controls select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 12px;
+            background: #333;
+            color: #eee;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        #controls label {
+            display: block;
+            margin-bottom: 3px;
+            color: #aaa;
+        }
+        .slider-group {
+            margin-bottom: 12px;
+        }
+        .slider-group input {
+            width: 100%;
+        }
+        .section {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -43,44 +85,62 @@
     <div id="info">
         <h1>Knight</h1>
         <p>Drag to rotate | Scroll to zoom</p>
-        <div id="props-status" style="margin-top: 10px; font-size: 12px;">
-            <div>Right hand: <span id="right-prop">loading...</span></div>
-            <div>Left hand: <span id="left-prop">loading...</span></div>
-        </div>
     </div>
 
-    <div id="controls" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; font-size: 12px; min-width: 220px;">
-        <h3 style="margin: 0 0 10px 0; font-size: 14px;">Animation</h3>
-        <select id="animation-select" style="width: 100%; padding: 5px; margin-bottom: 15px;">
-            <option value="">Loading animations...</option>
-        </select>
-
-        <h3 style="margin: 0 0 10px 0; font-size: 14px;">Right Hand (Sword)</h3>
-        <div style="margin-bottom: 5px;">
-            <label>X: <span id="right-x-val">0</span></label>
-            <input type="range" id="right-x" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
-        </div>
-        <div style="margin-bottom: 5px;">
-            <label>Y: <span id="right-y-val">0</span></label>
-            <input type="range" id="right-y" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
-        </div>
-        <div style="margin-bottom: 15px;">
-            <label>Z: <span id="right-z-val">0</span></label>
-            <input type="range" id="right-z" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+    <div id="controls">
+        <div class="section">
+            <h3>Skin</h3>
+            <select id="skin-select">
+                <option value="">Default</option>
+                <option value="_alt_A">Alt A</option>
+                <option value="_alt_B">Alt B</option>
+                <option value="_alt_C">Alt C</option>
+            </select>
         </div>
 
-        <h3 style="margin: 0 0 10px 0; font-size: 14px;">Left Hand (Shield)</h3>
-        <div style="margin-bottom: 5px;">
-            <label>X: <span id="left-x-val">0</span></label>
-            <input type="range" id="left-x" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        <div class="section">
+            <h3>Animation</h3>
+            <select id="animation-select">
+                <option value="">Loading...</option>
+            </select>
         </div>
-        <div style="margin-bottom: 5px;">
-            <label>Y: <span id="left-y-val">0</span></label>
-            <input type="range" id="left-y" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+
+        <div class="section">
+            <h3>Right Hand</h3>
+            <select id="right-weapon-select">
+                <option value="">(None)</option>
+            </select>
+            <div class="slider-group">
+                <label>X: <span id="right-x-val">0</span></label>
+                <input type="range" id="right-x" min="-0.5" max="0.5" step="0.01" value="0">
+            </div>
+            <div class="slider-group">
+                <label>Y: <span id="right-y-val">0</span></label>
+                <input type="range" id="right-y" min="-0.5" max="0.5" step="0.01" value="0">
+            </div>
+            <div class="slider-group">
+                <label>Z: <span id="right-z-val">0</span></label>
+                <input type="range" id="right-z" min="-0.5" max="0.5" step="0.01" value="0">
+            </div>
         </div>
-        <div style="margin-bottom: 5px;">
-            <label>Z: <span id="left-z-val">0.2</span></label>
-            <input type="range" id="left-z" min="-0.5" max="0.5" step="0.01" value="0.2" style="width: 100%;">
+
+        <div class="section">
+            <h3>Left Hand</h3>
+            <select id="left-weapon-select">
+                <option value="">(None)</option>
+            </select>
+            <div class="slider-group">
+                <label>X: <span id="left-x-val">0</span></label>
+                <input type="range" id="left-x" min="-0.5" max="0.5" step="0.01" value="0">
+            </div>
+            <div class="slider-group">
+                <label>Y: <span id="left-y-val">0</span></label>
+                <input type="range" id="left-y" min="-0.5" max="0.5" step="0.01" value="0">
+            </div>
+            <div class="slider-group">
+                <label>Z: <span id="left-z-val">0.2</span></label>
+                <input type="range" id="left-z" min="-0.5" max="0.5" step="0.01" value="0.2">
+            </div>
         </div>
     </div>
 
@@ -103,12 +163,7 @@
         scene.background = new THREE.Color(0x1a1a2e);
 
         // Camera
-        const camera = new THREE.PerspectiveCamera(
-            45,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 1.5, 3);
 
         // Renderer
@@ -139,61 +194,143 @@
         fillLight.position.set(-5, 5, -5);
         scene.add(fillLight);
 
-        // Ground plane
-        const groundGeometry = new THREE.CircleGeometry(2, 32);
-        const groundMaterial = new THREE.MeshStandardMaterial({
-            color: 0x2a2a4e,
-            roughness: 0.8
-        });
-        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        // Ground
+        const ground = new THREE.Mesh(
+            new THREE.CircleGeometry(2, 32),
+            new THREE.MeshStandardMaterial({ color: 0x2a2a4e, roughness: 0.8 })
+        );
         ground.rotation.x = -Math.PI / 2;
         ground.receiveShadow = true;
         scene.add(ground);
-
-        // Grid helper
-        const gridHelper = new THREE.GridHelper(4, 20, 0x444466, 0x333355);
-        scene.add(gridHelper);
+        scene.add(new THREE.GridHelper(4, 20, 0x444466, 0x333355));
 
         // Asset paths
         const loader = new GLTFLoader();
+        const textureLoader = new THREE.TextureLoader();
         const basePath = 'kaykit-assets/KayKit Adventurers 2.0';
-        const modelPath = `${basePath}/Characters/gltf/Knight.glb`;
-        const swordPath = `${basePath}/Assets/gltf/sword_1handed.gltf`;
-        const shieldPath = `${basePath}/Assets/gltf/shield_round.gltf`;
+        const charAnimPath = 'kaykit-assets/KayKit Character Animations 1.1';
+        const fantasyWeaponsPath = 'kaykit-assets/KayKit Fantasy Weapons Bits 1.0';
+
+        // All animation packs
         const animPaths = [
             `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_General.glb`,
-            `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_MovementBasic.glb`
+            `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_MovementBasic.glb`,
+            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_CombatMelee.glb`,
+            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_CombatRanged.glb`,
+            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_MovementAdvanced.glb`,
+            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_Simulation.glb`,
+            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_Tools.glb`,
         ];
 
-        // Store references for props attachment
+        // Weapon definitions: { name, path, hand: 'right'|'left'|'both', offsetZ }
+        const weapons = {
+            // Adventurers 2.0 weapons
+            'Sword 1H': { path: `${basePath}/Assets/gltf/sword_1handed.gltf`, hand: 'right' },
+            'Sword 2H': { path: `${basePath}/Assets/gltf/sword_2handed.gltf`, hand: 'right' },
+            'Axe 1H': { path: `${basePath}/Assets/gltf/axe_1handed.gltf`, hand: 'right' },
+            'Axe 2H': { path: `${basePath}/Assets/gltf/axe_2handed.gltf`, hand: 'right' },
+            'Dagger': { path: `${basePath}/Assets/gltf/dagger.gltf`, hand: 'right' },
+            'Staff': { path: `${basePath}/Assets/gltf/staff.gltf`, hand: 'right' },
+            'Wand': { path: `${basePath}/Assets/gltf/wand.gltf`, hand: 'right' },
+            'Druid Staff': { path: `${basePath}/Assets/gltf/druid_staff.gltf`, hand: 'right' },
+            'Bow': { path: `${basePath}/Assets/gltf/bow_withString.gltf`, hand: 'left' },
+            'Crossbow 1H': { path: `${basePath}/Assets/gltf/crossbow_1handed.gltf`, hand: 'right' },
+            'Crossbow 2H': { path: `${basePath}/Assets/gltf/crossbow_2handed.gltf`, hand: 'right' },
+            'Shotgun': { path: `${basePath}/Assets/gltf/shotgun.gltf`, hand: 'right' },
+            'Spellbook Open': { path: `${basePath}/Assets/gltf/spellbook_open.gltf`, hand: 'left' },
+            'Spellbook Closed': { path: `${basePath}/Assets/gltf/spellbook_closed.gltf`, hand: 'left' },
+            'Potion Red': { path: `${basePath}/Assets/gltf/potion_medium_red.gltf`, hand: 'right' },
+            'Potion Blue': { path: `${basePath}/Assets/gltf/potion_medium_blue.gltf`, hand: 'right' },
+            'Smokebomb': { path: `${basePath}/Assets/gltf/smokebomb.gltf`, hand: 'right' },
+            'Mug': { path: `${basePath}/Assets/gltf/mug_full.gltf`, hand: 'right' },
+            // Shields
+            'Shield Round': { path: `${basePath}/Assets/gltf/shield_round.gltf`, hand: 'left', offsetZ: 0.2 },
+            'Shield Badge': { path: `${basePath}/Assets/gltf/shield_badge.gltf`, hand: 'left', offsetZ: 0.2 },
+            'Shield Square': { path: `${basePath}/Assets/gltf/shield_square.gltf`, hand: 'left', offsetZ: 0.2 },
+            'Shield Spikes': { path: `${basePath}/Assets/gltf/shield_spikes.gltf`, hand: 'left', offsetZ: 0.2 },
+            // Fantasy Weapons
+            'FW Sword A': { path: `${fantasyWeaponsPath}/Assets/gltf/sword_A.gltf`, hand: 'right' },
+            'FW Sword B': { path: `${fantasyWeaponsPath}/Assets/gltf/sword_B.gltf`, hand: 'right' },
+            'FW Sword C': { path: `${fantasyWeaponsPath}/Assets/gltf/sword_C.gltf`, hand: 'right' },
+            'FW Sword D': { path: `${fantasyWeaponsPath}/Assets/gltf/sword_D.gltf`, hand: 'right' },
+            'FW Axe A': { path: `${fantasyWeaponsPath}/Assets/gltf/axe_A.gltf`, hand: 'right' },
+            'FW Axe B': { path: `${fantasyWeaponsPath}/Assets/gltf/axe_B.gltf`, hand: 'right' },
+            'FW Hammer A': { path: `${fantasyWeaponsPath}/Assets/gltf/hammer_A.gltf`, hand: 'right' },
+            'FW Hammer B': { path: `${fantasyWeaponsPath}/Assets/gltf/hammer_B.gltf`, hand: 'right' },
+            'FW Dagger A': { path: `${fantasyWeaponsPath}/Assets/gltf/dagger_A.gltf`, hand: 'right' },
+            'FW Dagger B': { path: `${fantasyWeaponsPath}/Assets/gltf/dagger_B.gltf`, hand: 'right' },
+            'FW Staff A': { path: `${fantasyWeaponsPath}/Assets/gltf/staff_A.gltf`, hand: 'right' },
+            'FW Staff B': { path: `${fantasyWeaponsPath}/Assets/gltf/staff_B.gltf`, hand: 'right' },
+            'FW Wand A': { path: `${fantasyWeaponsPath}/Assets/gltf/wand_A.gltf`, hand: 'right' },
+            'FW Spear A': { path: `${fantasyWeaponsPath}/Assets/gltf/spear_A.gltf`, hand: 'right' },
+            'FW Halberd': { path: `${fantasyWeaponsPath}/Assets/gltf/halberd.gltf`, hand: 'right' },
+            'FW Scythe': { path: `${fantasyWeaponsPath}/Assets/gltf/scythe.gltf`, hand: 'right' },
+            'FW Bow A': { path: `${fantasyWeaponsPath}/Assets/gltf/bow_A_withString.gltf`, hand: 'left' },
+            'FW Shield A': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_A.gltf`, hand: 'left', offsetZ: 0.2 },
+            'FW Shield B': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_B.gltf`, hand: 'left', offsetZ: 0.2 },
+            'FW Shield C': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_C.gltf`, hand: 'left', offsetZ: 0.2 },
+        };
+
+        // State
         let rightHandBone = null;
         let leftHandBone = null;
         let rightProp = null;
         let leftProp = null;
-
-        // Animation state
+        let characterModel = null;
+        let characterMaterials = [];
         let mixer = null;
         let currentAction = null;
         let allAnimations = {};
         const clock = new THREE.Clock();
 
-        // Helper to log skeleton hierarchy
-        function logSkeleton(object, indent = '') {
-            console.log(indent + object.name + ' (' + object.type + ')');
-            for (const child of object.children) {
-                logSkeleton(child, indent + '  ');
+        // Populate weapon dropdowns
+        function populateWeaponDropdowns() {
+            const rightSelect = document.getElementById('right-weapon-select');
+            const leftSelect = document.getElementById('left-weapon-select');
+
+            rightSelect.innerHTML = '<option value="">(None)</option>';
+            leftSelect.innerHTML = '<option value="">(None)</option>';
+
+            for (const [name, data] of Object.entries(weapons)) {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+
+                if (data.hand === 'right' || data.hand === 'both') {
+                    rightSelect.appendChild(option.cloneNode(true));
+                }
+                if (data.hand === 'left' || data.hand === 'both') {
+                    leftSelect.appendChild(option.cloneNode(true));
+                }
             }
+
+            // Set defaults
+            rightSelect.value = 'Sword 1H';
+            leftSelect.value = 'Shield Round';
         }
 
-        // Load props and attach to hands
-        function attachProp(propPath, bone, propName, statusElementId, offset = {x: 0, y: 0, z: 0}, rotation = {x: 0, y: 0, z: 0}, scale = 1, onLoad = null) {
-            const statusEl = document.getElementById(statusElementId);
+        // Load and attach a weapon
+        function loadWeapon(weaponName, hand) {
+            const bone = hand === 'right' ? rightHandBone : leftHandBone;
+            const currentProp = hand === 'right' ? rightProp : leftProp;
 
-            loader.load(propPath, (gltf) => {
+            // Remove current prop
+            if (currentProp && bone) {
+                bone.remove(currentProp);
+            }
+
+            if (!weaponName || !weapons[weaponName]) {
+                if (hand === 'right') rightProp = null;
+                else leftProp = null;
+                return;
+            }
+
+            const weapon = weapons[weaponName];
+            const offsetZ = weapon.offsetZ || 0;
+
+            loader.load(weapon.path, (gltf) => {
                 const prop = gltf.scene;
-                prop.position.set(offset.x, offset.y, offset.z);
-                prop.rotation.set(rotation.x, rotation.y, rotation.z);
-                prop.scale.setScalar(scale);
+                prop.position.set(0, 0, offsetZ);
 
                 prop.traverse((child) => {
                     if (child.isMesh) {
@@ -203,17 +340,28 @@
                 });
 
                 bone.add(prop);
-                console.log(`Attached ${propName} to ${bone.name}`);
-                if (statusEl) statusEl.textContent = propName;
-                if (onLoad) onLoad(prop);
-            }, undefined, (error) => {
-                console.error(`Failed to load ${propName}:`, error);
-                if (statusEl) statusEl.textContent = 'failed to load';
+
+                if (hand === 'right') {
+                    rightProp = prop;
+                    // Sync with slider values
+                    prop.position.x = parseFloat(document.getElementById('right-x').value);
+                    prop.position.y = parseFloat(document.getElementById('right-y').value);
+                    prop.position.z = parseFloat(document.getElementById('right-z').value);
+                } else {
+                    leftProp = prop;
+                    prop.position.x = parseFloat(document.getElementById('left-x').value);
+                    prop.position.y = parseFloat(document.getElementById('left-y').value);
+                    prop.position.z = parseFloat(document.getElementById('left-z').value);
+                }
+
+                console.log(`Loaded ${weaponName} in ${hand} hand`);
+            }, undefined, (err) => {
+                console.error(`Failed to load ${weaponName}:`, err);
             });
         }
 
-        // Load animations from GLB files and populate dropdown
-        function loadAnimations(targetModel) {
+        // Load animations
+        function loadAnimations() {
             const select = document.getElementById('animation-select');
             select.innerHTML = '<option value="">(None - T-Pose)</option>';
 
@@ -221,10 +369,10 @@
 
             animPaths.forEach((animPath) => {
                 loader.load(animPath, (gltf) => {
-                    console.log(`Loaded animations from ${animPath}:`, gltf.animations.map(a => a.name));
+                    const packName = animPath.split('/').pop().replace('.glb', '').replace('Rig_Medium_', '');
+                    console.log(`Loaded ${packName}:`, gltf.animations.map(a => a.name));
 
                     gltf.animations.forEach((clip) => {
-                        // Skip T-Pose as it's the default
                         if (clip.name === 'T-Pose') return;
 
                         allAnimations[clip.name] = clip;
@@ -237,13 +385,21 @@
 
                     loadedCount++;
                     if (loadedCount === animPaths.length) {
-                        console.log('All animations loaded:', Object.keys(allAnimations));
+                        // Sort options alphabetically
+                        const options = Array.from(select.options).slice(1);
+                        options.sort((a, b) => a.text.localeCompare(b.text));
+                        select.innerHTML = '<option value="">(None - T-Pose)</option>';
+                        options.forEach(opt => select.appendChild(opt));
+                        console.log('All animations loaded:', Object.keys(allAnimations).length);
                     }
+                }, undefined, (err) => {
+                    console.warn(`Failed to load animations from ${animPath}:`, err);
+                    loadedCount++;
                 });
             });
         }
 
-        // Play selected animation
+        // Play animation
         function playAnimation(name) {
             if (currentAction) {
                 currentAction.fadeOut(0.2);
@@ -261,95 +417,82 @@
             currentAction.play();
         }
 
-        // Animation dropdown handler
+        // Change skin texture
+        function changeSkin(variant) {
+            const texturePath = `${basePath}/Textures/knight_texture${variant}.png`;
+
+            textureLoader.load(texturePath, (texture) => {
+                texture.flipY = false;
+                texture.colorSpace = THREE.SRGBColorSpace;
+
+                characterMaterials.forEach(mat => {
+                    mat.map = texture;
+                    mat.needsUpdate = true;
+                });
+
+                console.log(`Skin changed to: knight_texture${variant}.png`);
+            }, undefined, (err) => {
+                console.error('Failed to load texture:', err);
+            });
+        }
+
+        // Load Knight model
+        loader.load(
+            `${basePath}/Characters/gltf/Knight.glb`,
+            (gltf) => {
+                characterModel = gltf.scene;
+
+                characterModel.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        if (child.material) {
+                            characterMaterials.push(child.material);
+                        }
+                    }
+
+                    if (child.name === 'handslotr') {
+                        rightHandBone = child;
+                    }
+                    if (child.name === 'handslotl') {
+                        leftHandBone = child;
+                    }
+                });
+
+                scene.add(characterModel);
+                console.log('Knight loaded');
+
+                // Setup mixer
+                mixer = new THREE.AnimationMixer(characterModel);
+
+                // Load animations
+                loadAnimations();
+
+                // Load default weapons
+                populateWeaponDropdowns();
+                loadWeapon('Sword 1H', 'right');
+                loadWeapon('Shield Round', 'left');
+            }
+        );
+
+        // Event handlers
         document.getElementById('animation-select').addEventListener('change', (e) => {
             playAnimation(e.target.value);
         });
 
-        // Load the Knight model
-        loader.load(
-            modelPath,
-            (gltf) => {
-                const model = gltf.scene;
-
-                // Log full skeleton structure to find bone names
-                console.log('=== Model Hierarchy ===');
-                logSkeleton(model);
-
-                // Enable shadows and find hand bones
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                        child.receiveShadow = true;
-                    }
-
-                    // Look for hand bones (common naming patterns)
-                    const name = child.name.toLowerCase();
-                    if (name.includes('hand') || name.includes('wrist') || name.includes('palm')) {
-                        console.log('Found potential hand bone:', child.name);
-                    }
-
-                    // KayKit uses handslotl and handslotr for prop attachment
-                    if (child.name === 'handslotr') {
-                        rightHandBone = child;
-                        console.log('Right hand slot found:', child.name);
-                    }
-                    if (child.name === 'handslotl') {
-                        leftHandBone = child;
-                        console.log('Left hand slot found:', child.name);
-                    }
-                });
-
-                scene.add(model);
-                console.log('Knight model loaded successfully!');
-
-                // After model loads, attach props if bones were found
-                if (rightHandBone) {
-                    // Sword in right hand
-                    attachProp(swordPath, rightHandBone, 'Sword', 'right-prop',
-                        {x: 0, y: 0, z: 0},
-                        {x: 0, y: 0, z: 0},
-                        1,
-                        (prop) => { rightProp = prop; }
-                    );
-                } else {
-                    document.getElementById('right-prop').textContent = 'no bone found';
-                }
-
-                if (leftHandBone) {
-                    // Shield in left hand - z offset 0.2 to position on forearm
-                    attachProp(shieldPath, leftHandBone, 'Shield', 'left-prop',
-                        {x: 0, y: 0, z: 0.2},
-                        {x: 0, y: 0, z: 0},
-                        1,
-                        (prop) => { leftProp = prop; }
-                    );
-                } else {
-                    document.getElementById('left-prop').textContent = 'no bone found';
-                }
-
-                // Set up animation mixer for this model
-                mixer = new THREE.AnimationMixer(model);
-
-                // Load all animation files
-                loadAnimations(model);
-            },
-            (progress) => {
-                console.log('Loading...', (progress.loaded / progress.total * 100).toFixed(1) + '%');
-            },
-            (error) => {
-                console.error('Error loading model:', error);
-            }
-        );
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('right-weapon-select').addEventListener('change', (e) => {
+            loadWeapon(e.target.value, 'right');
         });
 
-        // Slider controls for prop positioning
+        document.getElementById('left-weapon-select').addEventListener('change', (e) => {
+            loadWeapon(e.target.value, 'left');
+        });
+
+        document.getElementById('skin-select').addEventListener('change', (e) => {
+            changeSkin(e.target.value);
+        });
+
+        // Slider setup
         function setupSlider(id, valId, updateFn) {
             const slider = document.getElementById(id);
             const valDisplay = document.getElementById(valId);
@@ -359,25 +502,25 @@
             });
         }
 
-        // Right hand (sword) sliders
         setupSlider('right-x', 'right-x-val', (v) => { if (rightProp) rightProp.position.x = v; });
         setupSlider('right-y', 'right-y-val', (v) => { if (rightProp) rightProp.position.y = v; });
         setupSlider('right-z', 'right-z-val', (v) => { if (rightProp) rightProp.position.z = v; });
-
-        // Left hand (shield) sliders
         setupSlider('left-x', 'left-x-val', (v) => { if (leftProp) leftProp.position.x = v; });
         setupSlider('left-y', 'left-y-val', (v) => { if (leftProp) leftProp.position.y = v; });
         setupSlider('left-z', 'left-z-val', (v) => { if (leftProp) leftProp.position.z = v; });
 
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-
             const delta = clock.getDelta();
-            if (mixer) {
-                mixer.update(delta);
-            }
-
+            if (mixer) mixer.update(delta);
             controls.update();
             renderer.render(scene, camera);
         }
