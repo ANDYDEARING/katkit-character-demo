@@ -49,6 +49,36 @@
         </div>
     </div>
 
+    <div id="controls" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; font-size: 12px; min-width: 200px;">
+        <h3 style="margin: 0 0 10px 0; font-size: 14px;">Right Hand (Sword)</h3>
+        <div style="margin-bottom: 5px;">
+            <label>X: <span id="right-x-val">0</span></label>
+            <input type="range" id="right-x" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        </div>
+        <div style="margin-bottom: 5px;">
+            <label>Y: <span id="right-y-val">0</span></label>
+            <input type="range" id="right-y" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Z: <span id="right-z-val">0</span></label>
+            <input type="range" id="right-z" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        </div>
+
+        <h3 style="margin: 0 0 10px 0; font-size: 14px;">Left Hand (Shield)</h3>
+        <div style="margin-bottom: 5px;">
+            <label>X: <span id="left-x-val">0</span></label>
+            <input type="range" id="left-x" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        </div>
+        <div style="margin-bottom: 5px;">
+            <label>Y: <span id="left-y-val">0</span></label>
+            <input type="range" id="left-y" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        </div>
+        <div style="margin-bottom: 5px;">
+            <label>Z: <span id="left-z-val">0</span></label>
+            <input type="range" id="left-z" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+        </div>
+    </div>
+
     <script type="importmap">
     {
         "imports": {
@@ -129,6 +159,8 @@
         // Store references for props attachment
         let rightHandBone = null;
         let leftHandBone = null;
+        let rightProp = null;
+        let leftProp = null;
 
         // Helper to log skeleton hierarchy
         function logSkeleton(object, indent = '') {
@@ -139,7 +171,7 @@
         }
 
         // Load props and attach to hands
-        function attachProp(propPath, bone, propName, statusElementId, offset = {x: 0, y: 0, z: 0}, rotation = {x: 0, y: 0, z: 0}, scale = 1) {
+        function attachProp(propPath, bone, propName, statusElementId, offset = {x: 0, y: 0, z: 0}, rotation = {x: 0, y: 0, z: 0}, scale = 1, onLoad = null) {
             const statusEl = document.getElementById(statusElementId);
 
             loader.load(propPath, (gltf) => {
@@ -158,6 +190,7 @@
                 bone.add(prop);
                 console.log(`Attached ${propName} to ${bone.name}`);
                 if (statusEl) statusEl.textContent = propName;
+                if (onLoad) onLoad(prop);
             }, undefined, (error) => {
                 console.error(`Failed to load ${propName}:`, error);
                 if (statusEl) statusEl.textContent = 'failed to load';
@@ -205,9 +238,10 @@
                 if (rightHandBone) {
                     // Sword in right hand
                     attachProp(swordPath, rightHandBone, 'Sword', 'right-prop',
-                        {x: 0, y: 0, z: 0},     // offset
-                        {x: 0, y: 0, z: 0},     // rotation
-                        1                        // scale
+                        {x: 0, y: 0, z: 0},
+                        {x: 0, y: 0, z: 0},
+                        1,
+                        (prop) => { rightProp = prop; }
                     );
                 } else {
                     document.getElementById('right-prop').textContent = 'no bone found';
@@ -216,9 +250,10 @@
                 if (leftHandBone) {
                     // Shield in left hand
                     attachProp(shieldPath, leftHandBone, 'Shield', 'left-prop',
-                        {x: 0, y: 0, z: 0},     // offset
-                        {x: 0, y: 0, z: 0},     // rotation
-                        1                        // scale
+                        {x: 0, y: 0, z: 0},
+                        {x: 0, y: 0, z: 0},
+                        1,
+                        (prop) => { leftProp = prop; }
                     );
                 } else {
                     document.getElementById('left-prop').textContent = 'no bone found';
@@ -238,6 +273,26 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        // Slider controls for prop positioning
+        function setupSlider(id, valId, updateFn) {
+            const slider = document.getElementById(id);
+            const valDisplay = document.getElementById(valId);
+            slider.addEventListener('input', () => {
+                valDisplay.textContent = slider.value;
+                updateFn(parseFloat(slider.value));
+            });
+        }
+
+        // Right hand (sword) sliders
+        setupSlider('right-x', 'right-x-val', (v) => { if (rightProp) rightProp.position.x = v; });
+        setupSlider('right-y', 'right-y-val', (v) => { if (rightProp) rightProp.position.y = v; });
+        setupSlider('right-z', 'right-z-val', (v) => { if (rightProp) rightProp.position.z = v; });
+
+        // Left hand (shield) sliders
+        setupSlider('left-x', 'left-x-val', (v) => { if (leftProp) leftProp.position.x = v; });
+        setupSlider('left-y', 'left-y-val', (v) => { if (leftProp) leftProp.position.y = v; });
+        setupSlider('left-z', 'left-z-val', (v) => { if (leftProp) leftProp.position.z = v; });
 
         // Animation loop
         function animate() {
