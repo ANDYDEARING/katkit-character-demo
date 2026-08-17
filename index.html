@@ -49,7 +49,12 @@
         </div>
     </div>
 
-    <div id="controls" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; font-size: 12px; min-width: 200px;">
+    <div id="controls" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; font-size: 12px; min-width: 220px;">
+        <h3 style="margin: 0 0 10px 0; font-size: 14px;">Animation</h3>
+        <select id="animation-select" style="width: 100%; padding: 5px; margin-bottom: 15px;">
+            <option value="">Loading animations...</option>
+        </select>
+
         <h3 style="margin: 0 0 10px 0; font-size: 14px;">Right Hand (Sword)</h3>
         <div style="margin-bottom: 5px;">
             <label>X: <span id="right-x-val">0</span></label>
@@ -74,8 +79,8 @@
             <input type="range" id="left-y" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
         </div>
         <div style="margin-bottom: 5px;">
-            <label>Z: <span id="left-z-val">0</span></label>
-            <input type="range" id="left-z" min="-0.5" max="0.5" step="0.01" value="0" style="width: 100%;">
+            <label>Z: <span id="left-z-val">0.2</span></label>
+            <input type="range" id="left-z" min="-0.5" max="0.5" step="0.01" value="0.2" style="width: 100%;">
         </div>
     </div>
 
@@ -155,12 +160,22 @@
         const modelPath = `${basePath}/Characters/gltf/Knight.glb`;
         const swordPath = `${basePath}/Assets/gltf/sword_1handed.gltf`;
         const shieldPath = `${basePath}/Assets/gltf/shield_round.gltf`;
+        const animPaths = [
+            `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_General.glb`,
+            `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_MovementBasic.glb`
+        ];
 
         // Store references for props attachment
         let rightHandBone = null;
         let leftHandBone = null;
         let rightProp = null;
         let leftProp = null;
+
+        // Animation state
+        let mixer = null;
+        let currentAction = null;
+        let allAnimations = {};
+        const clock = new THREE.Clock();
 
         // Helper to log skeleton hierarchy
         function logSkeleton(object, indent = '') {
@@ -196,6 +211,60 @@
                 if (statusEl) statusEl.textContent = 'failed to load';
             });
         }
+
+        // Load animations from GLB files and populate dropdown
+        function loadAnimations(targetModel) {
+            const select = document.getElementById('animation-select');
+            select.innerHTML = '<option value="">(None - T-Pose)</option>';
+
+            let loadedCount = 0;
+
+            animPaths.forEach((animPath) => {
+                loader.load(animPath, (gltf) => {
+                    console.log(`Loaded animations from ${animPath}:`, gltf.animations.map(a => a.name));
+
+                    gltf.animations.forEach((clip) => {
+                        // Skip T-Pose as it's the default
+                        if (clip.name === 'T-Pose') return;
+
+                        allAnimations[clip.name] = clip;
+
+                        const option = document.createElement('option');
+                        option.value = clip.name;
+                        option.textContent = clip.name;
+                        select.appendChild(option);
+                    });
+
+                    loadedCount++;
+                    if (loadedCount === animPaths.length) {
+                        console.log('All animations loaded:', Object.keys(allAnimations));
+                    }
+                });
+            });
+        }
+
+        // Play selected animation
+        function playAnimation(name) {
+            if (currentAction) {
+                currentAction.fadeOut(0.2);
+            }
+
+            if (!name || !allAnimations[name]) {
+                currentAction = null;
+                return;
+            }
+
+            const clip = allAnimations[name];
+            currentAction = mixer.clipAction(clip);
+            currentAction.reset();
+            currentAction.fadeIn(0.2);
+            currentAction.play();
+        }
+
+        // Animation dropdown handler
+        document.getElementById('animation-select').addEventListener('change', (e) => {
+            playAnimation(e.target.value);
+        });
 
         // Load the Knight model
         loader.load(
@@ -248,9 +317,9 @@
                 }
 
                 if (leftHandBone) {
-                    // Shield in left hand
+                    // Shield in left hand - z offset 0.2 to position on forearm
                     attachProp(shieldPath, leftHandBone, 'Shield', 'left-prop',
-                        {x: 0, y: 0, z: 0},
+                        {x: 0, y: 0, z: 0.2},
                         {x: 0, y: 0, z: 0},
                         1,
                         (prop) => { leftProp = prop; }
@@ -258,6 +327,12 @@
                 } else {
                     document.getElementById('left-prop').textContent = 'no bone found';
                 }
+
+                // Set up animation mixer for this model
+                mixer = new THREE.AnimationMixer(model);
+
+                // Load all animation files
+                loadAnimations(model);
             },
             (progress) => {
                 console.log('Loading...', (progress.loaded / progress.total * 100).toFixed(1) + '%');
@@ -297,6 +372,12 @@
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
+
+            const delta = clock.getDelta();
+            if (mixer) {
+                mixer.update(delta);
+            }
+
             controls.update();
             renderer.render(scene, camera);
         }
