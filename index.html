@@ -43,6 +43,10 @@
     <div id="info">
         <h1>Knight</h1>
         <p>Drag to rotate | Scroll to zoom</p>
+        <div id="props-status" style="margin-top: 10px; font-size: 12px;">
+            <div>Right hand: <span id="right-prop">loading...</span></div>
+            <div>Left hand: <span id="left-prop">loading...</span></div>
+        </div>
     </div>
 
     <script type="importmap">
@@ -115,25 +119,110 @@
         const gridHelper = new THREE.GridHelper(4, 20, 0x444466, 0x333355);
         scene.add(gridHelper);
 
-        // Load the Knight model
+        // Asset paths
         const loader = new GLTFLoader();
-        const modelPath = 'kaykit-assets/KayKit Adventurers 2.0/Characters/gltf/Knight.glb';
+        const basePath = 'kaykit-assets/KayKit Adventurers 2.0';
+        const modelPath = `${basePath}/Characters/gltf/Knight.glb`;
+        const swordPath = `${basePath}/Assets/gltf/sword_1handed.gltf`;
+        const shieldPath = `${basePath}/Assets/gltf/shield_round.gltf`;
 
-        loader.load(
-            modelPath,
-            (gltf) => {
-                const model = gltf.scene;
+        // Store references for props attachment
+        let rightHandBone = null;
+        let leftHandBone = null;
 
-                // Enable shadows on the model
-                model.traverse((child) => {
+        // Helper to log skeleton hierarchy
+        function logSkeleton(object, indent = '') {
+            console.log(indent + object.name + ' (' + object.type + ')');
+            for (const child of object.children) {
+                logSkeleton(child, indent + '  ');
+            }
+        }
+
+        // Load props and attach to hands
+        function attachProp(propPath, bone, propName, statusElementId, offset = {x: 0, y: 0, z: 0}, rotation = {x: 0, y: 0, z: 0}, scale = 1) {
+            const statusEl = document.getElementById(statusElementId);
+
+            loader.load(propPath, (gltf) => {
+                const prop = gltf.scene;
+                prop.position.set(offset.x, offset.y, offset.z);
+                prop.rotation.set(rotation.x, rotation.y, rotation.z);
+                prop.scale.setScalar(scale);
+
+                prop.traverse((child) => {
                     if (child.isMesh) {
                         child.castShadow = true;
                         child.receiveShadow = true;
                     }
                 });
 
+                bone.add(prop);
+                console.log(`Attached ${propName} to ${bone.name}`);
+                if (statusEl) statusEl.textContent = propName;
+            }, undefined, (error) => {
+                console.error(`Failed to load ${propName}:`, error);
+                if (statusEl) statusEl.textContent = 'failed to load';
+            });
+        }
+
+        // Load the Knight model
+        loader.load(
+            modelPath,
+            (gltf) => {
+                const model = gltf.scene;
+
+                // Log full skeleton structure to find bone names
+                console.log('=== Model Hierarchy ===');
+                logSkeleton(model);
+
+                // Enable shadows and find hand bones
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+
+                    // Look for hand bones (common naming patterns)
+                    const name = child.name.toLowerCase();
+                    if (name.includes('hand') || name.includes('wrist') || name.includes('palm')) {
+                        console.log('Found potential hand bone:', child.name);
+                    }
+
+                    // KayKit uses handslotl and handslotr for prop attachment
+                    if (child.name === 'handslotr') {
+                        rightHandBone = child;
+                        console.log('Right hand slot found:', child.name);
+                    }
+                    if (child.name === 'handslotl') {
+                        leftHandBone = child;
+                        console.log('Left hand slot found:', child.name);
+                    }
+                });
+
                 scene.add(model);
                 console.log('Knight model loaded successfully!');
+
+                // After model loads, attach props if bones were found
+                if (rightHandBone) {
+                    // Sword in right hand
+                    attachProp(swordPath, rightHandBone, 'Sword', 'right-prop',
+                        {x: 0, y: 0, z: 0},     // offset
+                        {x: 0, y: 0, z: 0},     // rotation
+                        1                        // scale
+                    );
+                } else {
+                    document.getElementById('right-prop').textContent = 'no bone found';
+                }
+
+                if (leftHandBone) {
+                    // Shield in left hand
+                    attachProp(shieldPath, leftHandBone, 'Shield', 'left-prop',
+                        {x: 0, y: 0, z: 0},     // offset
+                        {x: 0, y: 0, z: 0},     // rotation
+                        1                        // scale
+                    );
+                } else {
+                    document.getElementById('left-prop').textContent = 'no bone found';
+                }
             },
             (progress) => {
                 console.log('Loading...', (progress.loaded / progress.total * 100).toFixed(1) + '%');
