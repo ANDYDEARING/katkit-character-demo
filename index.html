@@ -70,10 +70,28 @@
             color: #aaa;
         }
         .slider-group {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
-        .slider-group input {
-            width: 100%;
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 4px;
+        }
+        .slider-row span {
+            width: 15px;
+            color: #aaa;
+        }
+        .slider-row input[type="range"] {
+            flex: 1;
+        }
+        .slider-row input[type="number"] {
+            width: 55px;
+            padding: 2px 4px;
+            background: #333;
+            color: #eee;
+            border: 1px solid #555;
+            border-radius: 3px;
         }
         .section {
             margin-bottom: 15px;
@@ -89,6 +107,21 @@
 
     <div id="controls">
         <div class="section">
+            <h3>Character</h3>
+            <select id="character-select">
+                <option value="Knight">Knight</option>
+                <option value="Barbarian">Barbarian</option>
+                <option value="Barbarian_Large">Barbarian (Large)</option>
+                <option value="Druid">Druid</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Mage">Mage</option>
+                <option value="Ranger">Ranger</option>
+                <option value="Rogue">Rogue</option>
+                <option value="Rogue_Hooded">Rogue (Hooded)</option>
+            </select>
+        </div>
+
+        <div class="section">
             <h3>Skin</h3>
             <select id="skin-select">
                 <option value="">Default</option>
@@ -103,6 +136,10 @@
             <select id="animation-select">
                 <option value="">Loading...</option>
             </select>
+            <div style="display: flex; gap: 5px; margin-top: 5px;">
+                <button id="anim-pause" style="flex: 1; padding: 5px; background: #444; color: #eee; border: 1px solid #666; border-radius: 4px; cursor: pointer;">Pause</button>
+                <button id="anim-reset" style="flex: 1; padding: 5px; background: #444; color: #eee; border: 1px solid #666; border-radius: 4px; cursor: pointer;">Reset</button>
+            </div>
         </div>
 
         <div class="section">
@@ -110,17 +147,17 @@
             <select id="right-weapon-select">
                 <option value="">(None)</option>
             </select>
+            <label>Position</label>
             <div class="slider-group">
-                <label>X: <span id="right-x-val">0</span></label>
-                <input type="range" id="right-x" min="-0.5" max="0.5" step="0.01" value="0">
+                <div class="slider-row"><span>X:</span><input type="range" id="right-pos-x" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="right-pos-x-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
+                <div class="slider-row"><span>Y:</span><input type="range" id="right-pos-y" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="right-pos-y-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
+                <div class="slider-row"><span>Z:</span><input type="range" id="right-pos-z" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="right-pos-z-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
             </div>
+            <label>Rotation (degrees)</label>
             <div class="slider-group">
-                <label>Y: <span id="right-y-val">0</span></label>
-                <input type="range" id="right-y" min="-0.5" max="0.5" step="0.01" value="0">
-            </div>
-            <div class="slider-group">
-                <label>Z: <span id="right-z-val">0</span></label>
-                <input type="range" id="right-z" min="-0.5" max="0.5" step="0.01" value="0">
+                <div class="slider-row"><span>X:</span><input type="range" id="right-rot-x" min="-180" max="180" step="1" value="0"><input type="number" id="right-rot-x-num" min="-180" max="180" step="1" value="0"></div>
+                <div class="slider-row"><span>Y:</span><input type="range" id="right-rot-y" min="-180" max="180" step="1" value="0"><input type="number" id="right-rot-y-num" min="-180" max="180" step="1" value="0"></div>
+                <div class="slider-row"><span>Z:</span><input type="range" id="right-rot-z" min="-180" max="180" step="1" value="0"><input type="number" id="right-rot-z-num" min="-180" max="180" step="1" value="0"></div>
             </div>
         </div>
 
@@ -129,17 +166,17 @@
             <select id="left-weapon-select">
                 <option value="">(None)</option>
             </select>
+            <label>Position</label>
             <div class="slider-group">
-                <label>X: <span id="left-x-val">0</span></label>
-                <input type="range" id="left-x" min="-0.5" max="0.5" step="0.01" value="0">
+                <div class="slider-row"><span>X:</span><input type="range" id="left-pos-x" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-x-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
+                <div class="slider-row"><span>Y:</span><input type="range" id="left-pos-y" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-y-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
+                <div class="slider-row"><span>Z:</span><input type="range" id="left-pos-z" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-z-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
             </div>
+            <label>Rotation (degrees)</label>
             <div class="slider-group">
-                <label>Y: <span id="left-y-val">0</span></label>
-                <input type="range" id="left-y" min="-0.5" max="0.5" step="0.01" value="0">
-            </div>
-            <div class="slider-group">
-                <label>Z: <span id="left-z-val">0.2</span></label>
-                <input type="range" id="left-z" min="-0.5" max="0.5" step="0.01" value="0.2">
+                <div class="slider-row"><span>X:</span><input type="range" id="left-rot-x" min="-180" max="180" step="1" value="0"><input type="number" id="left-rot-x-num" min="-180" max="180" step="1" value="0"></div>
+                <div class="slider-row"><span>Y:</span><input type="range" id="left-rot-y" min="-180" max="180" step="1" value="0"><input type="number" id="left-rot-y-num" min="-180" max="180" step="1" value="0"></div>
+                <div class="slider-row"><span>Z:</span><input type="range" id="left-rot-z" min="-180" max="180" step="1" value="0"><input type="number" id="left-rot-z-num" min="-180" max="180" step="1" value="0"></div>
             </div>
         </div>
     </div>
@@ -211,17 +248,6 @@
         const charAnimPath = 'kaykit-assets/KayKit Character Animations 1.1';
         const fantasyWeaponsPath = 'kaykit-assets/KayKit Fantasy Weapons Bits 1.0';
 
-        // All animation packs
-        const animPaths = [
-            `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_General.glb`,
-            `${basePath}/Animations/gltf/Rig_Medium/Rig_Medium_MovementBasic.glb`,
-            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_CombatMelee.glb`,
-            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_CombatRanged.glb`,
-            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_MovementAdvanced.glb`,
-            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_Simulation.glb`,
-            `${charAnimPath}/Animations/gltf/Rig_Medium/Rig_Medium_Tools.glb`,
-        ];
-
         // Weapon definitions: { name, path, hand: 'right'|'left'|'both', offsetZ }
         const weapons = {
             // Adventurers 2.0 weapons
@@ -233,7 +259,7 @@
             'Staff': { path: `${basePath}/Assets/gltf/staff.gltf`, hand: 'right' },
             'Wand': { path: `${basePath}/Assets/gltf/wand.gltf`, hand: 'right' },
             'Druid Staff': { path: `${basePath}/Assets/gltf/druid_staff.gltf`, hand: 'right' },
-            'Bow': { path: `${basePath}/Assets/gltf/bow_withString.gltf`, hand: 'left' },
+            'Bow': { path: `${basePath}/Assets/gltf/bow_withString.gltf`, hand: 'both' },
             'Crossbow 1H': { path: `${basePath}/Assets/gltf/crossbow_1handed.gltf`, hand: 'right' },
             'Crossbow 2H': { path: `${basePath}/Assets/gltf/crossbow_2handed.gltf`, hand: 'right' },
             'Shotgun': { path: `${basePath}/Assets/gltf/shotgun.gltf`, hand: 'right' },
@@ -244,10 +270,10 @@
             'Smokebomb': { path: `${basePath}/Assets/gltf/smokebomb.gltf`, hand: 'right' },
             'Mug': { path: `${basePath}/Assets/gltf/mug_full.gltf`, hand: 'right' },
             // Shields
-            'Shield Round': { path: `${basePath}/Assets/gltf/shield_round.gltf`, hand: 'left', offsetZ: 0.2 },
-            'Shield Badge': { path: `${basePath}/Assets/gltf/shield_badge.gltf`, hand: 'left', offsetZ: 0.2 },
-            'Shield Square': { path: `${basePath}/Assets/gltf/shield_square.gltf`, hand: 'left', offsetZ: 0.2 },
-            'Shield Spikes': { path: `${basePath}/Assets/gltf/shield_spikes.gltf`, hand: 'left', offsetZ: 0.2 },
+            'Shield Round': { path: `${basePath}/Assets/gltf/shield_round.gltf`, hand: 'left' },
+            'Shield Badge': { path: `${basePath}/Assets/gltf/shield_badge.gltf`, hand: 'left' },
+            'Shield Square': { path: `${basePath}/Assets/gltf/shield_square.gltf`, hand: 'left' },
+            'Shield Spikes': { path: `${basePath}/Assets/gltf/shield_spikes.gltf`, hand: 'left' },
             // Fantasy Weapons
             'FW Sword A': { path: `${fantasyWeaponsPath}/Assets/gltf/sword_A.gltf`, hand: 'right' },
             'FW Sword B': { path: `${fantasyWeaponsPath}/Assets/gltf/sword_B.gltf`, hand: 'right' },
@@ -265,13 +291,29 @@
             'FW Spear A': { path: `${fantasyWeaponsPath}/Assets/gltf/spear_A.gltf`, hand: 'right' },
             'FW Halberd': { path: `${fantasyWeaponsPath}/Assets/gltf/halberd.gltf`, hand: 'right' },
             'FW Scythe': { path: `${fantasyWeaponsPath}/Assets/gltf/scythe.gltf`, hand: 'right' },
-            'FW Bow A': { path: `${fantasyWeaponsPath}/Assets/gltf/bow_A_withString.gltf`, hand: 'left' },
-            'FW Shield A': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_A.gltf`, hand: 'left', offsetZ: 0.2 },
-            'FW Shield B': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_B.gltf`, hand: 'left', offsetZ: 0.2 },
-            'FW Shield C': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_C.gltf`, hand: 'left', offsetZ: 0.2 },
+            'FW Bow A': { path: `${fantasyWeaponsPath}/Assets/gltf/bow_A_withString.gltf`, hand: 'both' },
+            'FW Bow B': { path: `${fantasyWeaponsPath}/Assets/gltf/bow_B_withString.gltf`, hand: 'both' },
+            'FW Bow C': { path: `${fantasyWeaponsPath}/Assets/gltf/bow_C_withString.gltf`, hand: 'both' },
+            'FW Shield A': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_A.gltf`, hand: 'left' },
+            'FW Shield B': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_B.gltf`, hand: 'left' },
+            'FW Shield C': { path: `${fantasyWeaponsPath}/Assets/gltf/shield_C.gltf`, hand: 'left' },
+        };
+
+        // Character definitions
+        const characters = {
+            'Knight': { file: 'Knight.glb', texture: 'knight', rig: 'Medium' },
+            'Barbarian': { file: 'Barbarian.glb', texture: 'barbarian', rig: 'Medium' },
+            'Barbarian_Large': { file: 'Barbarian_Large.glb', texture: 'barbarian', rig: 'Large' },
+            'Druid': { file: 'Druid.glb', texture: 'druid', rig: 'Medium' },
+            'Engineer': { file: 'Engineer.glb', texture: 'engineer', rig: 'Medium' },
+            'Mage': { file: 'Mage.glb', texture: 'mage', rig: 'Medium' },
+            'Ranger': { file: 'Ranger.glb', texture: 'ranger', rig: 'Medium' },
+            'Rogue': { file: 'Rogue.glb', texture: 'rogue', rig: 'Medium' },
+            'Rogue_Hooded': { file: 'Rogue_Hooded.glb', texture: 'rogue', rig: 'Medium' },
         };
 
         // State
+        let currentCharacterName = 'Knight';
         let rightHandBone = null;
         let leftHandBone = null;
         let rightProp = null;
@@ -281,6 +323,7 @@
         let mixer = null;
         let currentAction = null;
         let allAnimations = {};
+        let animationsLoaded = false;
         const clock = new THREE.Clock();
 
         // Populate weapon dropdowns
@@ -332,11 +375,6 @@
                 const prop = gltf.scene;
                 prop.position.set(0, 0, offsetZ);
 
-                // Right hand weapons need 180 degree rotation along handle (Y axis)
-                if (hand === 'right') {
-                    prop.rotation.y = Math.PI;
-                }
-
                 prop.traverse((child) => {
                     if (child.isMesh) {
                         child.castShadow = true;
@@ -346,17 +384,25 @@
 
                 bone.add(prop);
 
+                const degToRad = (deg) => deg * Math.PI / 180;
+
                 if (hand === 'right') {
                     rightProp = prop;
                     // Sync with slider values
-                    prop.position.x = parseFloat(document.getElementById('right-x').value);
-                    prop.position.y = parseFloat(document.getElementById('right-y').value);
-                    prop.position.z = parseFloat(document.getElementById('right-z').value);
+                    prop.position.x = parseFloat(document.getElementById('right-pos-x').value);
+                    prop.position.y = parseFloat(document.getElementById('right-pos-y').value);
+                    prop.position.z = parseFloat(document.getElementById('right-pos-z').value);
+                    prop.rotation.x = degToRad(parseFloat(document.getElementById('right-rot-x').value));
+                    prop.rotation.y = degToRad(parseFloat(document.getElementById('right-rot-y').value));
+                    prop.rotation.z = degToRad(parseFloat(document.getElementById('right-rot-z').value));
                 } else {
                     leftProp = prop;
-                    prop.position.x = parseFloat(document.getElementById('left-x').value);
-                    prop.position.y = parseFloat(document.getElementById('left-y').value);
-                    prop.position.z = parseFloat(document.getElementById('left-z').value);
+                    prop.position.x = parseFloat(document.getElementById('left-pos-x').value);
+                    prop.position.y = parseFloat(document.getElementById('left-pos-y').value);
+                    prop.position.z = parseFloat(document.getElementById('left-pos-z').value);
+                    prop.rotation.x = degToRad(parseFloat(document.getElementById('left-rot-x').value));
+                    prop.rotation.y = degToRad(parseFloat(document.getElementById('left-rot-y').value));
+                    prop.rotation.z = degToRad(parseFloat(document.getElementById('left-rot-z').value));
                 }
 
                 console.log(`Loaded ${weaponName} in ${hand} hand`);
@@ -365,16 +411,39 @@
             });
         }
 
+        // Get animation paths for a specific rig type
+        function getAnimPaths(rigType) {
+            const rig = `Rig_${rigType}`;
+            return [
+                `${basePath}/Animations/gltf/${rig}/${rig}_General.glb`,
+                `${basePath}/Animations/gltf/${rig}/${rig}_MovementBasic.glb`,
+                `${charAnimPath}/Animations/gltf/${rig}/${rig}_CombatMelee.glb`,
+                `${charAnimPath}/Animations/gltf/${rig}/${rig}_CombatRanged.glb`,
+                `${charAnimPath}/Animations/gltf/${rig}/${rig}_MovementAdvanced.glb`,
+                `${charAnimPath}/Animations/gltf/${rig}/${rig}_Simulation.glb`,
+                `${charAnimPath}/Animations/gltf/${rig}/${rig}_Tools.glb`,
+            ];
+        }
+
         // Load animations
-        function loadAnimations() {
+        let currentRigType = null;
+        function loadAnimations(rigType = 'Medium') {
+            // Skip if already loaded for this rig
+            if (currentRigType === rigType && animationsLoaded) return;
+
+            currentRigType = rigType;
+            allAnimations = {};
+            animationsLoaded = false;
+
             const select = document.getElementById('animation-select');
             select.innerHTML = '<option value="">(None - T-Pose)</option>';
 
+            const paths = getAnimPaths(rigType);
             let loadedCount = 0;
 
-            animPaths.forEach((animPath) => {
+            paths.forEach((animPath) => {
                 loader.load(animPath, (gltf) => {
-                    const packName = animPath.split('/').pop().replace('.glb', '').replace('Rig_Medium_', '');
+                    const packName = animPath.split('/').pop().replace('.glb', '').replace(`Rig_${rigType}_`, '');
                     console.log(`Loaded ${packName}:`, gltf.animations.map(a => a.name));
 
                     gltf.animations.forEach((clip) => {
@@ -389,12 +458,13 @@
                     });
 
                     loadedCount++;
-                    if (loadedCount === animPaths.length) {
+                    if (loadedCount === paths.length) {
                         // Sort options alphabetically
                         const options = Array.from(select.options).slice(1);
                         options.sort((a, b) => a.text.localeCompare(b.text));
                         select.innerHTML = '<option value="">(None - T-Pose)</option>';
                         options.forEach(opt => select.appendChild(opt));
+                        animationsLoaded = true;
                         console.log('All animations loaded:', Object.keys(allAnimations).length);
                     }
                 }, undefined, (err) => {
@@ -424,7 +494,8 @@
 
         // Change skin texture
         function changeSkin(variant) {
-            const texturePath = `${basePath}/Textures/knight_texture${variant}.png`;
+            const charDef = characters[currentCharacterName];
+            const texturePath = `${basePath}/Textures/${charDef.texture}_texture${variant}.png`;
 
             textureLoader.load(texturePath, (texture) => {
                 texture.flipY = false;
@@ -435,17 +506,40 @@
                     mat.needsUpdate = true;
                 });
 
-                console.log(`Skin changed to: knight_texture${variant}.png`);
+                console.log(`Skin changed to: ${charDef.texture}_texture${variant}.png`);
             }, undefined, (err) => {
                 console.error('Failed to load texture:', err);
             });
         }
 
-        // Load Knight model
-        loader.load(
-            `${basePath}/Characters/gltf/Knight.glb`,
-            (gltf) => {
+        // Load character model
+        function loadCharacter(charName) {
+            const charDef = characters[charName];
+            if (!charDef) return;
+
+            // Store current weapon selections
+            const rightWeapon = document.getElementById('right-weapon-select').value;
+            const leftWeapon = document.getElementById('left-weapon-select').value;
+
+            // Remove old character
+            if (characterModel) {
+                scene.remove(characterModel);
+                characterModel = null;
+            }
+
+            // Reset state
+            rightHandBone = null;
+            leftHandBone = null;
+            rightProp = null;
+            leftProp = null;
+            characterMaterials = [];
+            currentAction = null;
+
+            const modelPath = `${basePath}/Characters/gltf/${charDef.file}`;
+
+            loader.load(modelPath, (gltf) => {
                 characterModel = gltf.scene;
+                currentCharacterName = charName;
 
                 characterModel.traverse((child) => {
                     if (child.isMesh) {
@@ -465,22 +559,36 @@
                 });
 
                 scene.add(characterModel);
-                console.log('Knight loaded');
 
                 // Setup mixer
                 mixer = new THREE.AnimationMixer(characterModel);
 
-                // Load animations
-                loadAnimations();
+                // Update title
+                document.querySelector('#info h1').textContent = charName.replace('_', ' ');
 
-                // Load default weapons
-                populateWeaponDropdowns();
-                loadWeapon('Sword 1H', 'right');
-                loadWeapon('Shield Round', 'left');
-            }
-        );
+                // Reset skin selector
+                document.getElementById('skin-select').value = '';
+
+                // Load animations for this rig type if needed
+                loadAnimations(charDef.rig);
+
+                // Re-attach weapons
+                if (rightWeapon) loadWeapon(rightWeapon, 'right');
+                if (leftWeapon) loadWeapon(leftWeapon, 'left');
+
+                console.log(`${charName} loaded`);
+            });
+        }
+
+        // Initial load
+        populateWeaponDropdowns();
+        loadCharacter('Knight');
 
         // Event handlers
+        document.getElementById('character-select').addEventListener('change', (e) => {
+            loadCharacter(e.target.value);
+        });
+
         document.getElementById('animation-select').addEventListener('change', (e) => {
             playAnimation(e.target.value);
         });
@@ -497,22 +605,63 @@
             changeSkin(e.target.value);
         });
 
-        // Slider setup
-        function setupSlider(id, valId, updateFn) {
-            const slider = document.getElementById(id);
-            const valDisplay = document.getElementById(valId);
+        let animationPaused = false;
+        document.getElementById('anim-pause').addEventListener('click', () => {
+            animationPaused = !animationPaused;
+            if (currentAction) {
+                currentAction.paused = animationPaused;
+            }
+            document.getElementById('anim-pause').textContent = animationPaused ? 'Play' : 'Pause';
+        });
+
+        document.getElementById('anim-reset').addEventListener('click', () => {
+            if (currentAction) {
+                currentAction.reset();
+                currentAction.play();
+                animationPaused = false;
+                currentAction.paused = false;
+                document.getElementById('anim-pause').textContent = 'Pause';
+            }
+        });
+
+        // Slider setup - links slider and number input together
+        function setupSliderPair(sliderId, numId, updateFn) {
+            const slider = document.getElementById(sliderId);
+            const numInput = document.getElementById(numId);
+
             slider.addEventListener('input', () => {
-                valDisplay.textContent = slider.value;
+                numInput.value = slider.value;
                 updateFn(parseFloat(slider.value));
+            });
+
+            numInput.addEventListener('input', () => {
+                slider.value = numInput.value;
+                updateFn(parseFloat(numInput.value));
             });
         }
 
-        setupSlider('right-x', 'right-x-val', (v) => { if (rightProp) rightProp.position.x = v; });
-        setupSlider('right-y', 'right-y-val', (v) => { if (rightProp) rightProp.position.y = v; });
-        setupSlider('right-z', 'right-z-val', (v) => { if (rightProp) rightProp.position.z = v; });
-        setupSlider('left-x', 'left-x-val', (v) => { if (leftProp) leftProp.position.x = v; });
-        setupSlider('left-y', 'left-y-val', (v) => { if (leftProp) leftProp.position.y = v; });
-        setupSlider('left-z', 'left-z-val', (v) => { if (leftProp) leftProp.position.z = v; });
+        // Convert degrees to radians
+        const degToRad = (deg) => deg * Math.PI / 180;
+
+        // Right hand position
+        setupSliderPair('right-pos-x', 'right-pos-x-num', (v) => { if (rightProp) rightProp.position.x = v; });
+        setupSliderPair('right-pos-y', 'right-pos-y-num', (v) => { if (rightProp) rightProp.position.y = v; });
+        setupSliderPair('right-pos-z', 'right-pos-z-num', (v) => { if (rightProp) rightProp.position.z = v; });
+
+        // Right hand rotation
+        setupSliderPair('right-rot-x', 'right-rot-x-num', (v) => { if (rightProp) rightProp.rotation.x = degToRad(v); });
+        setupSliderPair('right-rot-y', 'right-rot-y-num', (v) => { if (rightProp) rightProp.rotation.y = degToRad(v); });
+        setupSliderPair('right-rot-z', 'right-rot-z-num', (v) => { if (rightProp) rightProp.rotation.z = degToRad(v); });
+
+        // Left hand position
+        setupSliderPair('left-pos-x', 'left-pos-x-num', (v) => { if (leftProp) leftProp.position.x = v; });
+        setupSliderPair('left-pos-y', 'left-pos-y-num', (v) => { if (leftProp) leftProp.position.y = v; });
+        setupSliderPair('left-pos-z', 'left-pos-z-num', (v) => { if (leftProp) leftProp.position.z = v; });
+
+        // Left hand rotation
+        setupSliderPair('left-rot-x', 'left-rot-x-num', (v) => { if (leftProp) leftProp.rotation.x = degToRad(v); });
+        setupSliderPair('left-rot-y', 'left-rot-y-num', (v) => { if (leftProp) leftProp.rotation.y = degToRad(v); });
+        setupSliderPair('left-rot-z', 'left-rot-z-num', (v) => { if (leftProp) leftProp.rotation.z = degToRad(v); });
 
         // Resize handler
         window.addEventListener('resize', () => {
