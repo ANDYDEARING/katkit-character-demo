@@ -64,6 +64,17 @@
             border: 1px solid #555;
             border-radius: 4px;
         }
+        #controls select optgroup {
+            background: #444;
+            color: #8af;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        #controls select option {
+            background: #333;
+            color: #eee;
+            padding: 3px 8px;
+        }
         #controls label {
             display: block;
             margin-bottom: 3px;
@@ -109,15 +120,77 @@
         <div class="section">
             <h3>Character</h3>
             <select id="character-select">
-                <option value="Knight">Knight</option>
-                <option value="Barbarian">Barbarian</option>
-                <option value="Barbarian_Large">Barbarian (Large)</option>
-                <option value="Druid">Druid</option>
-                <option value="Engineer">Engineer</option>
-                <option value="Mage">Mage</option>
-                <option value="Ranger">Ranger</option>
-                <option value="Rogue">Rogue</option>
-                <option value="Rogue_Hooded">Rogue (Hooded)</option>
+                <optgroup label="Adventurers">
+                    <option value="Knight">Knight</option>
+                    <option value="Barbarian">Barbarian</option>
+                    <option value="Barbarian_Large">Barbarian (Large)</option>
+                    <option value="Druid">Druid</option>
+                    <option value="Engineer">Engineer</option>
+                    <option value="Mage">Mage</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Rogue_Hooded">Rogue (Hooded)</option>
+                </optgroup>
+                <optgroup label="Skeletons">
+                    <option value="Skeleton_Warrior">Skeleton Warrior</option>
+                    <option value="Skeleton_Rogue">Skeleton Rogue</option>
+                    <option value="Skeleton_Mage">Skeleton Mage</option>
+                    <option value="Skeleton_Minion">Skeleton Minion</option>
+                    <option value="Skeleton_Golem">Skeleton Golem</option>
+                    <option value="Necromancer">Necromancer</option>
+                </optgroup>
+                <optgroup label="Mystery Monthly S4">
+                    <option value="Orc_Raider">Orc Raider</option>
+                    <option value="Driver">Driver</option>
+                    <option value="Monster">Monster</option>
+                    <option value="MonsterCostume">Monster Costume</option>
+                    <option value="Werewolf_Man">Werewolf (Human)</option>
+                    <option value="Werewolf_Wolf">Werewolf (Wolf)</option>
+                    <option value="Animatronic">Animatronic</option>
+                    <option value="Animatronic_Creepy">Animatronic (Creepy)</option>
+                    <option value="ActionFigure">Action Figure</option>
+                    <option value="SpaceRanger">Space Ranger</option>
+                    <option value="SpaceRanger_Flight">Space Ranger (Flight)</option>
+                    <option value="Ninja">Ninja</option>
+                    <option value="Survivalist">Survivalist</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Paladin_Helmet">Paladin (Helmet)</option>
+                    <option value="Clown">Clown</option>
+                    <option value="Robot_One">Robot One</option>
+                    <option value="Robot_Two">Robot Two</option>
+                </optgroup>
+                <optgroup label="Mystery Monthly S5">
+                    <option value="CombatMech">Combat Mech</option>
+                    <option value="Superhero">Superhero</option>
+                    <option value="BlackKnight">Black Knight</option>
+                    <option value="Vampire">Vampire</option>
+                    <option value="Witch">Witch</option>
+                    <option value="Helper">Helper A</option>
+                    <option value="Helper_B">Helper B</option>
+                    <option value="FrostGolem">Frost Golem</option>
+                    <option value="Caveman">Caveman</option>
+                    <option value="Clanker">Clanker</option>
+                    <option value="Protagonist">Protagonist A</option>
+                    <option value="Protagonist_B">Protagonist B</option>
+                    <option value="Hiker">Hiker</option>
+                    <option value="Tiefling">Tiefling</option>
+                </optgroup>
+                <optgroup label="Mystery Monthly S6">
+                    <option value="Lorekeeper">Lorekeeper</option>
+                    <option value="OrcBrute">Orc Brute</option>
+                    <option value="Cleric">Cleric</option>
+                    <option value="Monstrosity">Monstrosity</option>
+                    <option value="PlantWarrior">Plant Warrior</option>
+                    <option value="ToySoldier">Toy Soldier</option>
+                    <option value="4GTN">4GTN</option>
+                    <option value="4GTN_Forgotten">4GTN (Forgotten)</option>
+                    <option value="Hoarder">Hoarder</option>
+                    <option value="AvianSwordsman">Avian Swordsman</option>
+                    <option value="Marksman">Marksman</option>
+                    <option value="MagicalGirl">Magical Girl</option>
+                    <option value="Farmer">Farmer A</option>
+                    <option value="Farmer_B">Farmer B</option>
+                </optgroup>
             </select>
         </div>
 
@@ -300,16 +373,82 @@
         };
 
         // Character definitions
+        const skeletonsPath = 'kaykit-assets/KayKit Skeletons 1.1';
+        const mysteryS4Path = 'kaykit-assets/KayKit Mystery Monthly Series 4 (1.1)';
+        const mysteryS5Path = 'kaykit-assets/KayKit Mystery Monthly Series 5 (1.1)';
+        const mysteryS6Path = 'kaykit-assets/KayKit Mystery Monthly Series 6 (1.1)';
+
         const characters = {
-            'Knight': { file: 'Knight.glb', texture: 'knight', rig: 'Medium' },
-            'Barbarian': { file: 'Barbarian.glb', texture: 'barbarian', rig: 'Medium' },
-            'Barbarian_Large': { file: 'Barbarian_Large.glb', texture: 'barbarian', rig: 'Large' },
-            'Druid': { file: 'Druid.glb', texture: 'druid', rig: 'Medium' },
-            'Engineer': { file: 'Engineer.glb', texture: 'engineer', rig: 'Medium' },
-            'Mage': { file: 'Mage.glb', texture: 'mage', rig: 'Medium' },
-            'Ranger': { file: 'Ranger.glb', texture: 'ranger', rig: 'Medium' },
-            'Rogue': { file: 'Rogue.glb', texture: 'rogue', rig: 'Medium' },
-            'Rogue_Hooded': { file: 'Rogue_Hooded.glb', texture: 'rogue', rig: 'Medium' },
+            // Adventurers
+            'Knight': { file: 'Knight.glb', texture: 'knight', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Barbarian': { file: 'Barbarian.glb', texture: 'barbarian', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Barbarian_Large': { file: 'Barbarian_Large.glb', texture: 'barbarian', rig: 'Large', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Druid': { file: 'Druid.glb', texture: 'druid', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Engineer': { file: 'Engineer.glb', texture: 'engineer', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Mage': { file: 'Mage.glb', texture: 'mage', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Ranger': { file: 'Ranger.glb', texture: 'ranger', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Rogue': { file: 'Rogue.glb', texture: 'rogue', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+            'Rogue_Hooded': { file: 'Rogue_Hooded.glb', texture: 'rogue', rig: 'Medium', basePath: basePath, textureBase: `${basePath}/Textures` },
+
+            // Skeletons
+            'Skeleton_Warrior': { file: 'Skeleton_Warrior.glb', texture: 'skeleton', rig: 'Medium', basePath: skeletonsPath, charSubPath: 'characters/gltf', textureBase: `${skeletonsPath}/textures`, textureSuffix: '_A' },
+            'Skeleton_Rogue': { file: 'Skeleton_Rogue.glb', texture: 'skeleton', rig: 'Medium', basePath: skeletonsPath, charSubPath: 'characters/gltf', textureBase: `${skeletonsPath}/textures`, textureSuffix: '_A' },
+            'Skeleton_Mage': { file: 'Skeleton_Mage.glb', texture: 'skeleton', rig: 'Medium', basePath: skeletonsPath, charSubPath: 'characters/gltf', textureBase: `${skeletonsPath}/textures`, textureSuffix: '_A' },
+            'Skeleton_Minion': { file: 'Skeleton_Minion.glb', texture: 'skeleton', rig: 'Medium', basePath: skeletonsPath, charSubPath: 'characters/gltf', textureBase: `${skeletonsPath}/textures`, textureSuffix: '_A' },
+            'Skeleton_Golem': { file: 'Skeleton_Golem.glb', texture: 'skeleton', rig: 'Large', basePath: skeletonsPath, charSubPath: 'characters/gltf', textureBase: `${skeletonsPath}/textures`, textureSuffix: '_A' },
+            'Necromancer': { file: 'Necromancer.glb', texture: 'skeleton', rig: 'Medium', basePath: skeletonsPath, charSubPath: 'characters/gltf', textureBase: `${skeletonsPath}/textures`, textureSuffix: '_A' },
+
+            // Mystery Monthly Series 4
+            'Orc_Raider': { file: 'OrcRaider.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '1 - July 2023 - Orc Raider/character', defaultTexture: `${mysteryS4Path}/1 - July 2023 - Orc Raider/textures/orc_texture_A.png` },
+            'Driver': { file: 'Driver.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '2 - August 2023 - Driver/character/gltf', defaultTexture: `${mysteryS4Path}/2 - August 2023 - Driver/textures/driver_texture.png` },
+            'Monster': { file: 'Monster.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '3 - September 2023 - Monster Costume/character/gltf', defaultTexture: `${mysteryS4Path}/3 - September 2023 - Monster Costume/textures/monstercostume_texture_A.png` },
+            'MonsterCostume': { file: 'MonsterCostume.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '3 - September 2023 - Monster Costume/character/gltf', defaultTexture: `${mysteryS4Path}/3 - September 2023 - Monster Costume/textures/monstercostume_texture_A.png` },
+            'Werewolf_Man': { file: 'Werewolf_Man.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '4 - October 2023 - Werewolf/characters/gltf', defaultTexture: `${mysteryS4Path}/4 - October 2023 - Werewolf/textures/werewolf_A.png` },
+            'Werewolf_Wolf': { file: 'Werewolf_Wolf.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '4 - October 2023 - Werewolf/characters/gltf', defaultTexture: `${mysteryS4Path}/4 - October 2023 - Werewolf/textures/werewolf_A.png` },
+            'Animatronic': { file: 'Animatronic_Normal.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '5 - November 2023 - Animatronic/characters/gltf', defaultTexture: `${mysteryS4Path}/5 - November 2023 - Animatronic/textures/animatronic_A.png` },
+            'Animatronic_Creepy': { file: 'Animatronic_Creepy.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '5 - November 2023 - Animatronic/characters/gltf', defaultTexture: `${mysteryS4Path}/5 - November 2023 - Animatronic/textures/animatronic_A.png` },
+            'ActionFigure': { file: 'ActionFigure.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '6 - December 2023 - Action Figure/character/gltf' },
+            'SpaceRanger': { file: 'SpaceRanger.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '7 - January 2024 - Space Ranger/character', defaultTexture: `${mysteryS4Path}/7 - January 2024 - Space Ranger/texture/spaceranger_texture.png` },
+            'SpaceRanger_Flight': { file: 'SpaceRanger_FlightMode.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '7 - January 2024 - Space Ranger/character', defaultTexture: `${mysteryS4Path}/7 - January 2024 - Space Ranger/texture/spaceranger_texture.png` },
+            'Ninja': { file: 'Ninja.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '8 - February 2024 - Ninja/character', defaultTexture: `${mysteryS4Path}/8 - February 2024 - Ninja/texture/ninja_texture_A.png` },
+            'Survivalist': { file: 'Survivalist.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '9 - March 2024 - Survivalist/character', defaultTexture: `${mysteryS4Path}/9 - March 2024 - Survivalist/texture/survivalist_texture.png` },
+            'Paladin': { file: 'Paladin.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '10 - April 2024 - Paladin/characters/gltf', defaultTexture: `${mysteryS4Path}/10 - April 2024 - Paladin/textures/paladin_texture_A.png` },
+            'Paladin_Helmet': { file: 'Paladin_with_Helmet.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '10 - April 2024 - Paladin/characters/gltf', defaultTexture: `${mysteryS4Path}/10 - April 2024 - Paladin/textures/paladin_texture_A.png` },
+            'Clown': { file: 'Clown.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '11 - May 2024 - Clown/characters', defaultTexture: `${mysteryS4Path}/11 - May 2024 - Clown/textures/clown_texture.png` },
+            'Robot_One': { file: 'Robot_One.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '12 - June 2024 - Robot/characters', defaultTexture: `${mysteryS4Path}/12 - June 2024 - Robot/textures/robot_texture.png` },
+            'Robot_Two': { file: 'Robot_Two.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '12 - June 2024 - Robot/characters', defaultTexture: `${mysteryS4Path}/12 - June 2024 - Robot/textures/robot_texture.png` },
+
+            // Mystery Monthly Series 5
+            'CombatMech': { file: 'CombatMech.glb', rig: 'Large', basePath: mysteryS5Path, charSubPath: '1 - July 2024 - Combat Mech/characters', defaultTexture: `${mysteryS5Path}/1 - July 2024 - Combat Mech/textures/combatmech_texture.png` },
+            'Superhero': { file: 'Superhero.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '2 - August 2024 - Superhero/characters', defaultTexture: `${mysteryS5Path}/2 - August 2024 - Superhero/textures/superhero_texture.png` },
+            'BlackKnight': { file: 'BlackKnight.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '3 - September 2024 - Black Knight/characters', defaultTexture: `${mysteryS5Path}/3 - September 2024 - Black Knight/textures/blackknight_texture.png` },
+            'Vampire': { file: 'Vampire.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '4 - October 2024 - Vampire/characters', defaultTexture: `${mysteryS5Path}/4 - October 2024 - Vampire/textures/vampire_texture.png` },
+            'Witch': { file: 'Witch.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '5 - November 2024 - Witch/characters', defaultTexture: `${mysteryS5Path}/5 - November 2024 - Witch/textures/witch_texture_A.png` },
+            'Helper': { file: 'Helper_A.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '6 - December 2024 - Helpers/characters', defaultTexture: `${mysteryS5Path}/6 - December 2024 - Helpers/textures/helpers_texture.png` },
+            'Helper_B': { file: 'Helper_B.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '6 - December 2024 - Helpers/characters', defaultTexture: `${mysteryS5Path}/6 - December 2024 - Helpers/textures/helpers_texture.png` },
+            'FrostGolem': { file: 'FrostGolem.glb', rig: 'Large', basePath: mysteryS5Path, charSubPath: '7 - January 2025 - FrostGolem/characters', defaultTexture: `${mysteryS5Path}/7 - January 2025 - FrostGolem/textures/frostgolem_texture.png` },
+            'Caveman': { file: 'Caveman.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '8 - February 2025 - Caveman/characters', defaultTexture: `${mysteryS5Path}/8 - February 2025 - Caveman/textures/caveman_texture.png` },
+            'Clanker': { file: 'Clanker.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '9 - March 2025 - Clanker/characters', defaultTexture: `${mysteryS5Path}/9 - March 2025 - Clanker/textures/clanker_texture.png` },
+            'Protagonist': { file: 'Protagonist_A.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '10 - April 2025 - Protagonists/characters', defaultTexture: `${mysteryS5Path}/10 - April 2025 - Protagonists/textures/protagonist_texture.png` },
+            'Protagonist_B': { file: 'Protagonist_B.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '10 - April 2025 - Protagonists/characters', defaultTexture: `${mysteryS5Path}/10 - April 2025 - Protagonists/textures/protagonist_texture.png` },
+            'Hiker': { file: 'Hiker.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '11 - May 2025 - Hiker/characters', defaultTexture: `${mysteryS5Path}/11 - May 2025 - Hiker/textures/hiker_texture.png` },
+            'Tiefling': { file: 'Tiefling.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '12 - June 2025 - Tiefling/characters', defaultTexture: `${mysteryS5Path}/12 - June 2025 - Tiefling/textures/tiefling_texture.png` },
+
+            // Mystery Monthly Series 6
+            'Lorekeeper': { file: 'Lorekeeper.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '1 - July 2025 - Lorekeeper/characters', defaultTexture: `${mysteryS6Path}/1 - July 2025 - Lorekeeper/textures/lorekeeper_texture.png` },
+            'OrcBrute': { file: 'OrcBrute.glb', rig: 'Large', basePath: mysteryS6Path, charSubPath: '2 - August 2025 - Orc Brute/characters', defaultTexture: `${mysteryS6Path}/2 - August 2025 - Orc Brute/textures/orcbrute_texture_A.png` },
+            'Cleric': { file: 'Cleric.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '3 - September 2025 - Cleric/characters', defaultTexture: `${mysteryS6Path}/3 - September 2025 - Cleric/textures/cleric_texture.png` },
+            'Monstrosity': { file: 'Monstrosity.glb', rig: 'Large', basePath: mysteryS6Path, charSubPath: '4 - October 2025 - Monstrosity/characters', defaultTexture: `${mysteryS6Path}/4 - October 2025 - Monstrosity/textures/monstrosity_texture_A.png` },
+            'PlantWarrior': { file: 'PlantWarrior.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '5 - November 2025 - Plant Warrior/characters', defaultTexture: `${mysteryS6Path}/5 - November 2025 - Plant Warrior/textures/plantcreatures_texture.png` },
+            'ToySoldier': { file: 'ToySoldier.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '6 - December 2025 - Toy Soldier/characters', defaultTexture: `${mysteryS6Path}/6 - December 2025 - Toy Soldier/textures/toy_soldier_texture.png` },
+            '4GTN': { file: '4GTN.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '7 - January 2026 - 4GTN/characters', defaultTexture: `${mysteryS6Path}/7 - January 2026 - 4GTN/texture/4GTN_texture.png` },
+            '4GTN_Forgotten': { file: '4GTN_Forgotten.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '7 - January 2026 - 4GTN/characters', defaultTexture: `${mysteryS6Path}/7 - January 2026 - 4GTN/texture/4GTN_texture.png` },
+            'Hoarder': { file: 'Hoarder.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '8 - February 2026 - Hoarder/characters', defaultTexture: `${mysteryS6Path}/8 - February 2026 - Hoarder/textures/hoarder_texture.png` },
+            'AvianSwordsman': { file: 'AvianSwordsman.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '9 - March 2026 - Avian Swordsman/characters', defaultTexture: `${mysteryS6Path}/9 - March 2026 - Avian Swordsman/textures/avianswordsman_texture.png` },
+            'Marksman': { file: 'Marksman.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '10 - April 2026 - Marksman/characters', defaultTexture: `${mysteryS6Path}/10 - April 2026 - Marksman/textures/marksman_texture.png` },
+            'MagicalGirl': { file: 'MagicalGirl.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '11 - May 2026 - Magical Girl/characters', defaultTexture: `${mysteryS6Path}/11 - May 2026 - Magical Girl/textures/magical_girl_texture_A.png` },
+            'Farmer': { file: 'Farmer_A.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '12 - June 2026 - Farmers/characters', defaultTexture: `${mysteryS6Path}/12 - June 2026 - Farmers/textures/farmer_texture_A.png` },
+            'Farmer_B': { file: 'Farmer_B.glb', rig: 'Medium', basePath: mysteryS6Path, charSubPath: '12 - June 2026 - Farmers/characters', defaultTexture: `${mysteryS6Path}/12 - June 2026 - Farmers/textures/farmer_texture_A.png` },
         };
 
         // State
@@ -495,7 +634,16 @@
         // Change skin texture
         function changeSkin(variant) {
             const charDef = characters[currentCharacterName];
-            const texturePath = `${basePath}/Textures/${charDef.texture}_texture${variant}.png`;
+
+            // Characters without texture support
+            if (!charDef.texture) {
+                console.log('This character does not support skin variants');
+                return;
+            }
+
+            // Build texture path based on character type
+            const textureBase = charDef.textureBase || `${basePath}/Textures`;
+            const texturePath = `${textureBase}/${charDef.texture}_texture${variant}.png`;
 
             textureLoader.load(texturePath, (texture) => {
                 texture.flipY = false;
@@ -510,6 +658,38 @@
             }, undefined, (err) => {
                 console.error('Failed to load texture:', err);
             });
+        }
+
+        // Update skin dropdown based on character type
+        function updateSkinDropdown(charDef) {
+            const skinSelect = document.getElementById('skin-select');
+            skinSelect.innerHTML = '';
+
+            if (!charDef.texture) {
+                // No texture support
+                skinSelect.innerHTML = '<option value="">(No skins)</option>';
+                skinSelect.disabled = true;
+                return;
+            }
+
+            skinSelect.disabled = false;
+
+            if (charDef.textureSuffix) {
+                // Skeleton-style textures (_A, _B)
+                skinSelect.innerHTML = `
+                    <option value="_A">Variant A</option>
+                    <option value="_B">Variant B</option>
+                `;
+                skinSelect.value = charDef.textureSuffix;
+            } else {
+                // Adventurer-style textures
+                skinSelect.innerHTML = `
+                    <option value="">Default</option>
+                    <option value="_alt_A">Alt A</option>
+                    <option value="_alt_B">Alt B</option>
+                    <option value="_alt_C">Alt C</option>
+                `;
+            }
         }
 
         // Load character model
@@ -535,7 +715,10 @@
             characterMaterials = [];
             currentAction = null;
 
-            const modelPath = `${basePath}/Characters/gltf/${charDef.file}`;
+            // Build model path - handle different folder structures
+            const charBasePath = charDef.basePath || basePath;
+            const charSubPath = charDef.charSubPath || 'Characters/gltf';
+            const modelPath = `${charBasePath}/${charSubPath}/${charDef.file}`;
 
             loader.load(modelPath, (gltf) => {
                 characterModel = gltf.scene;
@@ -564,10 +747,25 @@
                 mixer = new THREE.AnimationMixer(characterModel);
 
                 // Update title
-                document.querySelector('#info h1').textContent = charName.replace('_', ' ');
+                document.querySelector('#info h1').textContent = charName.replace(/_/g, ' ');
 
-                // Reset skin selector
-                document.getElementById('skin-select').value = '';
+                // Update skin dropdown for this character type
+                updateSkinDropdown(charDef);
+
+                // Apply default texture if specified (for Mystery Monthly characters)
+                if (charDef.defaultTexture) {
+                    textureLoader.load(charDef.defaultTexture, (texture) => {
+                        texture.flipY = false;
+                        texture.colorSpace = THREE.SRGBColorSpace;
+                        characterMaterials.forEach(mat => {
+                            mat.map = texture;
+                            mat.needsUpdate = true;
+                        });
+                        console.log(`Applied texture: ${charDef.defaultTexture}`);
+                    }, undefined, (err) => {
+                        console.warn(`Failed to load texture: ${charDef.defaultTexture}`, err);
+                    });
+                }
 
                 // Load animations for this rig type if needed
                 loadAnimations(charDef.rig);
