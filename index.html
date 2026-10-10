@@ -192,6 +192,7 @@
                     <option value="Farmer_B">Farmer B</option>
                 </optgroup>
             </select>
+            <button id="export-config" style="width: 100%; margin-top: 8px; padding: 6px; background: #4a7; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Export Config</button>
         </div>
 
         <div class="section">
@@ -860,6 +861,46 @@
         setupSliderPair('left-rot-x', 'left-rot-x-num', (v) => { if (leftProp) leftProp.rotation.x = degToRad(v); });
         setupSliderPair('left-rot-y', 'left-rot-y-num', (v) => { if (leftProp) leftProp.rotation.y = degToRad(v); });
         setupSliderPair('left-rot-z', 'left-rot-z-num', (v) => { if (leftProp) leftProp.rotation.z = degToRad(v); });
+
+        // Export configuration to CSV
+        document.getElementById('export-config').addEventListener('click', () => {
+            const rightWeapon = document.getElementById('right-weapon-select').value || '';
+            const leftWeapon = document.getElementById('left-weapon-select').value || '';
+
+            // Get position/rotation values from sliders
+            const rightPosX = document.getElementById('right-pos-x').value;
+            const rightPosY = document.getElementById('right-pos-y').value;
+            const rightPosZ = document.getElementById('right-pos-z').value;
+            const rightRotX = document.getElementById('right-rot-x').value;
+            const rightRotY = document.getElementById('right-rot-y').value;
+            const rightRotZ = document.getElementById('right-rot-z').value;
+
+            const leftPosX = document.getElementById('left-pos-x').value;
+            const leftPosY = document.getElementById('left-pos-y').value;
+            const leftPosZ = document.getElementById('left-pos-z').value;
+            const leftRotX = document.getElementById('left-rot-x').value;
+            const leftRotY = document.getElementById('left-rot-y').value;
+            const leftRotZ = document.getElementById('left-rot-z').value;
+
+            // Build CSV content
+            const headers = ['model', 'hand', 'prop', 'pos_x', 'pos_y', 'pos_z', 'rot_x', 'rot_y', 'rot_z'];
+            const rows = [
+                headers.join(','),
+                [currentCharacterName, 'right', rightWeapon, rightPosX, rightPosY, rightPosZ, rightRotX, rightRotY, rightRotZ].join(','),
+                [currentCharacterName, 'left', leftWeapon, leftPosX, leftPosY, leftPosZ, leftRotX, leftRotY, leftRotZ].join(',')
+            ];
+            const csvContent = rows.join('\n');
+
+            // Download the file
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${currentCharacterName}_props_config.csv`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+
+            console.log('Exported config for', currentCharacterName);
+        });
 
         // Resize handler
         window.addEventListener('resize', () => {
