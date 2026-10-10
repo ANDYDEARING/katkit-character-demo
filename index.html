@@ -99,36 +99,7 @@
         .slider-row input[type="number"] {
             width: 55px;
             padding: 2px 4px;
-            background: #333;
-            color: #eee;
-            border: 1px solid #555;
-            border-radius: 3px;
-        }
-        .section {
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-<body>
-    <div id="canvas-container"></div>
-    <div id="info">
-        <h1>Knight</h1>
-        <p>Drag to rotate | Scroll to zoom | Hi Tristen!</p>
-    </div>
-
-    <div id="controls">
-        <div class="section">
-            <h3>Character</h3>
-            <select id="character-select">
-                <optgroup label="Adventurers">
-                    <option value="Knight">Knight</option>
-                    <option value="Barbarian">Barbarian</option>
-                    <option value="Barbarian_Large">Barbarian (Large)</option>
-                    <option value="Druid">Druid</option>
-                    <option value="Engineer">Engineer</option>
-                    <option value="Mage">Mage</option>
-                    <option value="Ranger">Ranger</option>
-                    <option value="Rogue">Rogue</option>
+ 
                     <option value="Rogue_Hooded">Rogue (Hooded)</option>
                 </optgroup>
                 <optgroup label="Skeletons">
@@ -226,42 +197,9 @@
                 <div class="slider-row"><span>Y:</span><input type="range" id="right-pos-y" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="right-pos-y-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
                 <div class="slider-row"><span>Z:</span><input type="range" id="right-pos-z" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="right-pos-z-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
             </div>
-            <label>Rotation (degrees)</label>
-            <div class="slider-group">
-                <div class="slider-row"><span>X:</span><input type="range" id="right-rot-x" min="-180" max="180" step="1" value="0"><input type="number" id="right-rot-x-num" min="-180" max="180" step="1" value="0"></div>
-                <div class="slider-row"><span>Y:</span><input type="range" id="right-rot-y" min="-180" max="180" step="1" value="0"><input type="number" id="right-rot-y-num" min="-180" max="180" step="1" value="0"></div>
-                <div class="slider-row"><span>Z:</span><input type="range" id="right-rot-z" min="-180" max="180" step="1" value="0"><input type="number" id="right-rot-z-num" min="-180" max="180" step="1" value="0"></div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h3>Left Hand</h3>
-            <select id="left-weapon-select">
-                <option value="">(None)</option>
-            </select>
-            <label>Position</label>
-            <div class="slider-group">
-                <div class="slider-row"><span>X:</span><input type="range" id="left-pos-x" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-x-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
-                <div class="slider-row"><span>Y:</span><input type="range" id="left-pos-y" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-y-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
-                <div class="slider-row"><span>Z:</span><input type="range" id="left-pos-z" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-z-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
-            </div>
-            <label>Rotation (degrees)</label>
-            <div class="slider-group">
-                <div class="slider-row"><span>X:</span><input type="range" id="left-rot-x" min="-180" max="180" step="1" value="0"><input type="number" id="left-rot-x-num" min="-180" max="180" step="1" value="0"></div>
-                <div class="slider-row"><span>Y:</span><input type="range" id="left-rot-y" min="-180" max="180" step="1" value="0"><input type="number" id="left-rot-y-num" min="-180" max="180" step="1" value="0"></div>
-                <div class="slider-row"><span>Z:</span><input type="range" id="left-rot-z" min="-180" max="180" step="1" value="0"><input type="number" id="left-rot-z-num" min="-180" max="180" step="1" value="0"></div>
-            </div>
-        </div>
-    </div>
-
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-        }
-    }
-    </script>
+     
+            id="left-pos-y" min="-0.5" max="0.5" step="0.01" value="0"><input type="number" id="left-pos-y-num" min="-0.5" max="0.5" step="0.01" value="0"></div>
+                <div class
 
     <script type="module">
         import * as THREE from 'three';
@@ -401,27 +339,7 @@
             // Mystery Monthly Series 4
             'Orc_Raider': { file: 'OrcRaider.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '1 - July 2023 - Orc Raider/character', defaultTexture: `${mysteryS4Path}/1 - July 2023 - Orc Raider/textures/orc_texture_A.png` },
             'Driver': { file: 'Driver.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '2 - August 2023 - Driver/character/gltf', defaultTexture: `${mysteryS4Path}/2 - August 2023 - Driver/textures/driver_texture.png` },
-            'Monster': { file: 'Monster.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '3 - September 2023 - Monster Costume/character/gltf', defaultTexture: `${mysteryS4Path}/3 - September 2023 - Monster Costume/textures/monstercostume_texture_A.png` },
-            'MonsterCostume': { file: 'MonsterCostume.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '3 - September 2023 - Monster Costume/character/gltf', defaultTexture: `${mysteryS4Path}/3 - September 2023 - Monster Costume/textures/monstercostume_texture_A.png` },
-            'Werewolf_Man': { file: 'Werewolf_Man.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '4 - October 2023 - Werewolf/characters/gltf', defaultTexture: `${mysteryS4Path}/4 - October 2023 - Werewolf/textures/werewolf_A.png` },
-            'Werewolf_Wolf': { file: 'Werewolf_Wolf.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '4 - October 2023 - Werewolf/characters/gltf', defaultTexture: `${mysteryS4Path}/4 - October 2023 - Werewolf/textures/werewolf_A.png` },
-            'Animatronic': { file: 'Animatronic_Normal.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '5 - November 2023 - Animatronic/characters/gltf', defaultTexture: `${mysteryS4Path}/5 - November 2023 - Animatronic/textures/animatronic_A.png` },
-            'Animatronic_Creepy': { file: 'Animatronic_Creepy.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '5 - November 2023 - Animatronic/characters/gltf', defaultTexture: `${mysteryS4Path}/5 - November 2023 - Animatronic/textures/animatronic_A.png` },
-            'ActionFigure': { file: 'ActionFigure.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '6 - December 2023 - Action Figure/character/gltf' },
-            'SpaceRanger': { file: 'SpaceRanger.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '7 - January 2024 - Space Ranger/character', defaultTexture: `${mysteryS4Path}/7 - January 2024 - Space Ranger/texture/spaceranger_texture.png` },
-            'SpaceRanger_Flight': { file: 'SpaceRanger_FlightMode.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '7 - January 2024 - Space Ranger/character', defaultTexture: `${mysteryS4Path}/7 - January 2024 - Space Ranger/texture/spaceranger_texture.png` },
-            'Ninja': { file: 'Ninja.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '8 - February 2024 - Ninja/character', defaultTexture: `${mysteryS4Path}/8 - February 2024 - Ninja/texture/ninja_texture_A.png` },
-            'Survivalist': { file: 'Survivalist.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '9 - March 2024 - Survivalist/character', defaultTexture: `${mysteryS4Path}/9 - March 2024 - Survivalist/texture/survivalist_texture.png` },
-            'Paladin': { file: 'Paladin.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '10 - April 2024 - Paladin/characters/gltf', defaultTexture: `${mysteryS4Path}/10 - April 2024 - Paladin/textures/paladin_texture_A.png` },
-            'Paladin_Helmet': { file: 'Paladin_with_Helmet.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '10 - April 2024 - Paladin/characters/gltf', defaultTexture: `${mysteryS4Path}/10 - April 2024 - Paladin/textures/paladin_texture_A.png` },
-            'Clown': { file: 'Clown.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '11 - May 2024 - Clown/characters', defaultTexture: `${mysteryS4Path}/11 - May 2024 - Clown/textures/clown_texture.png` },
-            'Robot_One': { file: 'Robot_One.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '12 - June 2024 - Robot/characters', defaultTexture: `${mysteryS4Path}/12 - June 2024 - Robot/textures/robot_texture.png` },
-            'Robot_Two': { file: 'Robot_Two.glb', rig: 'Medium', basePath: mysteryS4Path, charSubPath: '12 - June 2024 - Robot/characters', defaultTexture: `${mysteryS4Path}/12 - June 2024 - Robot/textures/robot_texture.png` },
-
-            // Mystery Monthly Series 5
-            'CombatMech': { file: 'CombatMech.glb', rig: 'Large', basePath: mysteryS5Path, charSubPath: '1 - July 2024 - Combat Mech/characters', defaultTexture: `${mysteryS5Path}/1 - July 2024 - Combat Mech/textures/combatmech_texture.png` },
-            'Superhero': { file: 'Superhero.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '2 - August 2024 - Superhero/characters', defaultTexture: `${mysteryS5Path}/2 - August 2024 - Superhero/textures/superhero_texture.png` },
-            'BlackKnight': { file: 'BlackKnight.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '3 - September 2024 - Black Knight/characters', defaultTexture: `${mysteryS5Path}/3 - September 2024 - Black Knight/textures/blackknight_texture.png` },
+            '<Meta:utf></Meta:utf>September 2024 - Black Knight/characters', defaultTexture: `${mysteryS5Path}/3 - September 2024 - Black Knight/textures/blackknight_texture.png` },
             'Vampire': { file: 'Vampire.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '4 - October 2024 - Vampire/characters', defaultTexture: `${mysteryS5Path}/4 - October 2024 - Vampire/textures/vampire_texture.png` },
             'Witch': { file: 'Witch.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '5 - November 2024 - Witch/characters', defaultTexture: `${mysteryS5Path}/5 - November 2024 - Witch/textures/witch_texture_A.png` },
             'Helper': { file: 'Helper_A.glb', rig: 'Medium', basePath: mysteryS5Path, charSubPath: '6 - December 2024 - Helpers/characters', defaultTexture: `${mysteryS5Path}/6 - December 2024 - Helpers/textures/helpers_texture.png` },
@@ -495,17 +413,6 @@
         function loadWeapon(weaponName, hand) {
             const bone = hand === 'right' ? rightHandBone : leftHandBone;
             const currentProp = hand === 'right' ? rightProp : leftProp;
-
-            // Remove current prop
-            if (currentProp && bone) {
-                bone.remove(currentProp);
-            }
-
-            if (!weaponName || !weapons[weaponName]) {
-                if (hand === 'right') rightProp = null;
-                else leftProp = null;
-                return;
-            }
 
             const weapon = weapons[weaponName];
             const offsetZ = weapon.offsetZ || 0;
@@ -632,27 +539,7 @@
         }
 
         // Change skin texture
-        function changeSkin(variant) {
-            const charDef = characters[currentCharacterName];
-
-            // Characters without texture support
-            if (!charDef.texture) {
-                console.log('This character does not support skin variants');
-                return;
-            }
-
-            // Build texture path based on character type
-            const textureBase = charDef.textureBase || `${basePath}/Textures`;
-            const texturePath = `${textureBase}/${charDef.texture}_texture${variant}.png`;
-
-            textureLoader.load(texturePath, (texture) => {
-                texture.flipY = false;
-                texture.colorSpace = THREE.SRGBColorSpace;
-
-                characterMaterials.forEach(mat => {
-                    mat.map = texture;
-                    mat.needsUpdate = true;
-                });
+  
 
                 console.log(`Skin changed to: ${charDef.texture}_texture${variant}.png`);
             }, undefined, (err) => {
@@ -774,7 +661,8 @@
                 if (rightWeapon) loadWeapon(rightWeapon, 'right');
                 if (leftWeapon) loadWeapon(leftWeapon, 'left');
 
-                console.log(`${charName} loaded`);
+                console.log(`${charName} ns br;eakglhf  w3ejhfvp87  `<!-- [o3`'fvouqw2  fdg]09qwepcfvg  pw8ei;ovchwqer'i;UCVW'p
+                    cefovqh;uiewycqxs] -->loaded`);
             });
         }
 
@@ -843,31 +731,7 @@
 
         // Right hand position
         setupSliderPair('right-pos-x', 'right-pos-x-num', (v) => { if (rightProp) rightProp.position.x = v; });
-        setupSliderPair('right-pos-y', 'right-pos-y-num', (v) => { if (rightProp) rightProp.position.y = v; });
-        setupSliderPair('right-pos-z', 'right-pos-z-num', (v) => { if (rightProp) rightProp.position.z = v; });
-
-        // Right hand rotation
-        setupSliderPair('right-rot-x', 'right-rot-x-num', (v) => { if (rightProp) rightProp.rotation.x = degToRad(v); });
-        setupSliderPair('right-rot-y', 'right-rot-y-num', (v) => { if (rightProp) rightProp.rotation.y = degToRad(v); });
-        setupSliderPair('right-rot-z', 'right-rot-z-num', (v) => { if (rightProp) rightProp.rotation.z = degToRad(v); });
-
-        // Left hand position
-        setupSliderPair('left-pos-x', 'left-pos-x-num', (v) => { if (leftProp) leftProp.position.x = v; });
-        setupSliderPair('left-pos-y', 'left-pos-y-num', (v) => { if (leftProp) leftProp.position.y = v; });
-        setupSliderPair('left-pos-z', 'left-pos-z-num', (v) => { if (leftProp) leftProp.position.z = v; });
-
-        // Left hand rotation
-        setupSliderPair('left-rot-x', 'left-rot-x-num', (v) => { if (leftProp) leftProp.rotation.x = degToRad(v); });
-        setupSliderPair('left-rot-y', 'left-rot-y-num', (v) => { if (leftProp) leftProp.rotation.y = degToRad(v); });
-        setupSliderPair('left-rot-z', 'left-rot-z-num', (v) => { if (leftProp) leftProp.rotation.z = degToRad(v); });
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
+       
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
